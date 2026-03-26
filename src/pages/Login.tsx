@@ -43,6 +43,24 @@ export default function Login({ onLogin }: LoginProps) {
     }
   };
 
+  const handleGuestLogin = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch("/api/auth/guest", { method: "POST" });
+      const data = await response.json();
+      if (response.ok) {
+        onLogin(data.token);
+      } else {
+        setError(data.error || "Guest login failed");
+      }
+    } catch (err) {
+      setError("Failed to connect to server");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-stone-50 relative overflow-hidden">
       {/* Decorative background elements */}
@@ -141,6 +159,17 @@ export default function Login({ onLogin }: LoginProps) {
             >
               {loading ? "Processing..." : isLogin ? "Sign In" : "Create Account"}
             </button>
+
+            {isLogin && (
+              <button
+                type="button"
+                onClick={handleGuestLogin}
+                disabled={loading}
+                className="w-full py-3 bg-stone-100 hover:bg-stone-200 text-stone-600 font-semibold rounded-2xl transition-all border border-stone-200"
+              >
+                Free Guest Access
+              </button>
+            )}
           </form>
 
           <div className="mt-8 text-center space-y-2">
