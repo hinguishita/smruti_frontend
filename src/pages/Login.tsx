@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { Eye, EyeOff, Lock, Phone, User, Heart } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, User, Heart } from "lucide-react";
 import { motion } from "motion/react";
 
 interface LoginProps {
@@ -12,7 +12,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -102,14 +102,14 @@ export default function Login({ onLogin }: LoginProps) {
             )}
 
             <div className="relative">
-              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={20} />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={20} />
               <input
-                type="tel"
-                placeholder="Phone Number"
+                type="email"
+                placeholder="Email Address"
                 required
                 className="w-full pl-10 pr-4 py-3 bg-stone-100 border-none rounded-2xl focus:ring-2 focus:ring-amber-500 transition-all outline-none"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               />
             </div>
 

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
-import { User, Phone, FileText, Save, Bookmark, Camera } from "lucide-react";
+import { User, Mail, FileText, Save, Bookmark, Camera } from "lucide-react";
 import DecorationCard from "../components/DecorationCard";
 import { motion } from "motion/react";
 
 interface UserProfile {
   name: string;
-  phone: string;
+  email: string;
   bio: string;
   profile_image: string;
 }
@@ -23,7 +23,7 @@ interface Decoration {
 export default function Profile() {
   const [profile, setProfile] = useState<UserProfile>({
     name: "",
-    phone: "",
+    email: "",
     bio: "",
     profile_image: "",
   });
@@ -112,7 +112,7 @@ export default function Profile() {
 
             <div className="text-center mb-8">
               <h2 className="font-serif text-2xl font-bold text-stone-800">{profile.name}</h2>
-              <p className="text-stone-500 text-sm">{profile.phone}</p>
+              <p className="text-stone-500 text-sm">{profile.email}</p>
             </div>
 
             <form onSubmit={handleUpdateProfile} className="space-y-4">
@@ -131,15 +131,15 @@ export default function Profile() {
               </div>
 
               <div>
-                <label className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-1 block">Phone Number</label>
+                <label className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-1 block">Email Address</label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-300" size={18} />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-300" size={18} />
                   <input
-                    type="tel"
+                    type="email"
                     disabled={!isEditing}
                     className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-100 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none disabled:opacity-70"
-                    value={profile.phone}
-                    onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                    value={profile.email}
+                    onChange={(e) => setProfile({ ...profile, email: e.target.value })}
                   />
                 </div>
               </div>
