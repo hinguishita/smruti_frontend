@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Search as SearchIcon, Filter, Sparkles, Plus, X, Image as ImageIcon } from "lucide-react";
 import DecorationCard from "../components/DecorationCard";
 import { motion, AnimatePresence } from "motion/react";
+import { API_BASE_URL } from "../config";
 
 interface Decoration {
   id: number;
@@ -34,7 +35,7 @@ export default function Home() {
 
   const fetchDecorations = async () => {
     try {
-      const response = await fetch("/api/decorations");
+      const response = await fetch(`${API_BASE_URL}/api/decorations`);
       const data = await response.json();
       setDecorations(data);
     } catch (err) {
@@ -48,7 +49,7 @@ export default function Home() {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      const response = await fetch("/api/user/saved-images", {
+      const response = await fetch(`${API_BASE_URL}/api/user/saved-images`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -65,13 +66,13 @@ export default function Home() {
     const isCurrentlySaved = savedIds.includes(id);
     try {
       if (isCurrentlySaved) {
-        await fetch(`/api/user/save-image/${id}`, {
+        await fetch(`${API_BASE_URL}/api/user/save-image/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
         setSavedIds(savedIds.filter((savedId) => savedId !== id));
       } else {
-        await fetch("/api/user/save-image", {
+        await fetch(`${API_BASE_URL}/api/user/save-image`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -95,7 +96,7 @@ export default function Home() {
     }
     setPostLoading(true);
     try {
-      const response = await fetch("/api/decorations", {
+      const response = await fetch(`${API_BASE_URL}/api/decorations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

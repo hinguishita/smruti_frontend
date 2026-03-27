@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { User, Mail, FileText, Save, Bookmark, Camera } from "lucide-react";
 import DecorationCard from "../components/DecorationCard";
 import { motion } from "motion/react";
+import { API_BASE_URL } from "../config";
 
 interface UserProfile {
   name: string;
@@ -40,7 +41,7 @@ export default function Profile() {
   const fetchProfile = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/user/profile", {
+      const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -55,7 +56,7 @@ export default function Profile() {
   const fetchSavedImages = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/user/saved-images", {
+      const response = await fetch(`${API_BASE_URL}/api/user/saved-images`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -69,7 +70,7 @@ export default function Profile() {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/user/profile", {
+      const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

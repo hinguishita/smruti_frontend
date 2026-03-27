@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { Eye, EyeOff, Lock, Mail, User, Heart } from "lucide-react";
 import { motion } from "motion/react";
+import { API_BASE_URL } from "../config";
 
 interface LoginProps {
   onLogin: (token: string) => void;
@@ -23,7 +24,7 @@ export default function Login({ onLogin }: LoginProps) {
     setLoading(true);
     setError("");
 
-    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
+    const endpoint = isLogin ? `${API_BASE_URL}/api/auth/login` : `${API_BASE_URL}/api/auth/register`;
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -47,7 +48,7 @@ export default function Login({ onLogin }: LoginProps) {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/auth/guest", { method: "POST" });
+      const response = await fetch(`${API_BASE_URL}/api/auth/guest`, { method: "POST" });
       const data = await response.json();
       if (response.ok) {
         onLogin(data.token);

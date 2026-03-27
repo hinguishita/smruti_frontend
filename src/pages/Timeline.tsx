@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { Calendar, Plus, Clock, CheckCircle2, Sparkles, Trash2 } from "lucide-react";
 import { motion } from "motion/react";
+import { API_BASE_URL } from "../config";
 
 interface Task {
   day: string;
@@ -28,7 +29,7 @@ export default function Timeline() {
   const fetchTimelines = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/user/timelines", {
+      const response = await fetch(`${API_BASE_URL}/api/user/timelines`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -45,7 +46,7 @@ export default function Timeline() {
     setLoading(true);
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/timeline/generate", {
+      const response = await fetch(`${API_BASE_URL}/api/timeline/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
